@@ -1,14 +1,15 @@
 import { WinstonModule } from 'nest-winston';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 
 import { AuthMiddleware } from './middlewares/authen';
 import { loggerOptions } from 'src/logger';
 import { StorifyModule } from './apps/storify/storify.module';
 import { CONFIG } from "src/config";
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
     imports: [
+        MongooseModule.forRoot(CONFIG.DATABASE_URI),
         WinstonModule.forRoot(loggerOptions),
         StorifyModule
     ]
